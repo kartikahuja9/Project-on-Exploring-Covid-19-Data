@@ -14,12 +14,15 @@ FROM PortfolioProject1.dbo.CovidDeaths
 WHERE continent is NOT NULL
 ORDER BY 3,4;
 
+--------------------------------------------------------------------------------------------------------
 
 --Select data that we are going to be using
 
 SELECT location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject1.dbo.CovidDeaths
 ORDER BY 1,2;
+
+--------------------------------------------------------------------------------------------------------
 
 --Looking at Total cases vs Total deaths
 --Chances of dying from contracting covid in each country
@@ -30,6 +33,8 @@ WHERE location = 'india'
 and continent is NOT NULL
 ORDER BY 1,2;
 
+--------------------------------------------------------------------------------------------------------
+
 --Looking at Total cases vs Population
 --Shows what percentage of population has contracted covid
 
@@ -37,6 +42,8 @@ SELECT location, date, total_cases, population, (total_cases/population)*100 AS 
 FROM PortfolioProject1.dbo.CovidDeaths
 --WHERE location like 'india'
 ORDER BY 1,2;
+
+--------------------------------------------------------------------------------------------------------
 
 --Looking at countries with highest infection rate
 
@@ -46,6 +53,8 @@ FROM PortfolioProject1.dbo.CovidDeaths
 GROUP BY location, population
 ORDER BY InfectedPopulationPercentage DESC;
 
+--------------------------------------------------------------------------------------------------------
+
 --Showing countries with highest death count per population
 
 SELECT Location, MAX(cast(total_deaths AS bigint)) AS TotalDeathCount
@@ -54,6 +63,8 @@ FROM PortfolioProject1.dbo.CovidDeaths
 WHERE continent is NOT NULL
 GROUP BY location, population
 ORDER BY TotalDeathCount DESC;
+
+--------------------------------------------------------------------------------------------------------
 
 --BREAKING THINGS DOWN BY CONTINENT
 
@@ -66,6 +77,8 @@ WHERE continent is NOT NULL
 GROUP BY Continent
 ORDER BY TotalDeathCount DESC;
 
+--------------------------------------------------------------------------------------------------------
+
 --  GLOBAL NUMBERS
 
 SELECT SUM(new_cases) AS Total_cases, SUM(CAST(new_deaths as INT)) AS Total_deaths, SUM(CAST(new_deaths as INT))/SUM(new_cases)*100 AS DeathPercentage
@@ -74,6 +87,8 @@ FROM PortfolioProject1.dbo.CovidDeaths
 WHERE continent is NOT NULL
 --GROUP BY date
 ORDER BY 1,2;
+
+--------------------------------------------------------------------------------------------------------
 
 -- Looking at Total population vs vaccinations
 -- Shows the Percentage of Population that has recieved at least one Covid Vaccine dose
@@ -90,6 +105,8 @@ JOIN PortfolioProject1..CovidVaccinations vac
 WHERE dea.continent is NOT NULL
 ORDER BY 2,3;
 
+
+--------------------------------------------------------------------------------------------------------
 
 -- USING CTE
 -- Using CTE to perform Calculation on Partition in previous query
@@ -110,6 +127,8 @@ WHERE dea.continent is NOT NULL
 SELECT *, (RollingPeopleVaccinated/population)*100
 FROM PopVsVac
 
+
+--------------------------------------------------------------------------------------------------------
 
 --TEMP TABLE
 -- Using Temp Table to perform Calculation on Partition in previous query
@@ -139,6 +158,8 @@ JOIN PortfolioProject1..CovidVaccinations vac
 SELECT *, (RollingPeopleVaccinated/population)*100
 FROM #PercentPopulationVaccinated
 
+--------------------------------------------------------------------------------------------------------
+
 --Creating a view to store data for later visualizations
 
 DROP VIEW PercentPopulationVaccinated
@@ -157,3 +178,4 @@ WHERE dea.continent is NOT NULL
 
 SELECT *
 FROM PercentPopulationVaccinated
+--------------------------------------------------------------------------------------------------------
