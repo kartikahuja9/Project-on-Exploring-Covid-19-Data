@@ -2,7 +2,7 @@
 Covid 19 Data Exploration
 Data from 01-01-2020 upto 18-07-2022
 Raw data obtained from (https://ourworldindata.org/covid-deaths)
-Environment used:- Microsoft SSMS
+Environment:- Microsoft SQL Server
 Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 
 I have used selected Data Tables obtained from these SQL queries to further create a Dashboard on Tableau Public
